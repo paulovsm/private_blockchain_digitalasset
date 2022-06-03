@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "get block by height",
+			"name": "get block by height-",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -18,7 +18,8 @@
 					],
 					"port": "8000",
 					"path": [
-						"block/height",
+						"block",
+                        "height",
 						"2"
 					]
 				}
@@ -39,6 +40,7 @@
 					"port": "8000",
 					"path": [
 						"block/hash",
+                        "hash",
 						"fec1b2e4587ea6bcec2434d2ce0431dd6831d608fce73d18fec475fe6e197bb8"
 					]
 				}
