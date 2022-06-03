@@ -64,7 +64,38 @@ class Blockchain {
     _addBlock(block) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-           
+            try {
+                if (self.height != -1) {
+                    block.previousBlockHash = self.chain[self.height].hash;
+                }
+
+                block.height = self.height + 1;
+                block.time = new Date().getTime().toString().slice(0, -3);
+                block.hash = SHA256(JSON.stringify(block)).toString();
+
+                let isValid = await block.validate();
+
+                if (!isValid) {
+                    throw new Error("The new block is not valid!")
+                }
+
+                self.chain.push(block);
+                self.height = block.height;
+
+                let resultLog = await self.validateChain();
+
+                if (resultLog.length > 0) {
+                    let rollbackedBlock = self.chain.pop();
+                    self.height--;
+                    throw new Error(['Error adding block in the blockchain!'].join(""));
+                }
+
+                resolve(block);
+                
+            } catch (error) {
+                console.error(error);
+                reject(error);
+            }
         });
     }
 
