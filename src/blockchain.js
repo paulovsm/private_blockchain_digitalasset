@@ -91,7 +91,7 @@ class Blockchain {
                 }
 
                 resolve(block);
-                
+
             } catch (error) {
                 console.error(error);
                 reject(error);
@@ -109,7 +109,9 @@ class Blockchain {
      */
     requestMessageOwnershipVerification(address) {
         return new Promise((resolve) => {
-            
+            let time = new Date().getTime().toString().slice(0, -3);
+            let message = [address, time, "starRegistry"].join(":");
+            resolve(message);            
         });
     }
 
@@ -133,7 +135,40 @@ class Blockchain {
     submitStar(address, message, signature, star) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-            
+            try {
+                let messageTime = parseInt(message.split(':')[1]);
+                let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
+                let elapsedTime = 5 * 6; // 5 minutes
+
+                if (currentTime - messageTime >= elapsedTime) {
+                    let error = new Error('Validation time expired!');
+                    
+                    console.error(error);
+                    reject(error);
+
+                    return;
+                }
+
+                if (!bitcoinMessage.verify(message, address, signature)) {
+                    let error = new Error('Signature is not valid!');
+
+                    console.error(error);
+                    reject(error);
+
+                    return;
+                }
+
+                let data = {"owner": message.split(':')[0], "star": star};
+
+                let block = new BlockClass.Block(data);
+                block = await self._addBlock(block);
+
+                resolve(block);
+
+            } catch (error) {
+                console.error(error);
+                reject(error);
+            }
         });
     }
 
@@ -146,6 +181,13 @@ class Blockchain {
     getBlockByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
+            let block = self.chain.filter(p => p.hash === hash)[0];
+
+            if (block) {
+                resolve(block);
+            } else {
+                resolve(null);
+            }
            
         });
     }
