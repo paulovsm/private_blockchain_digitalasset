@@ -219,6 +219,17 @@ class Blockchain {
         let self = this;
         let stars = [];
         return new Promise((resolve, reject) => {
+            try {
+                stars = self.chain
+                    .filter(p => p.height > 0 && p.getBData().owner === address)
+                    .map(block => block.getBData());
+
+                resolve(stars);
+
+            } catch (error) {
+                console.error(error);
+                reject(error);
+            }
             
         });
     }
@@ -233,6 +244,31 @@ class Blockchain {
         let self = this;
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
+            
+            for (let i = 1; i < self.chain.length; i++) {
+                let previousBlock = self.chain[i-1];
+                let block = self.chain[i];
+
+                try {
+                    let isValid = await block.validate();
+
+                    if (!isValid) {
+                        errorLog.push("Invalid hash at " + block.height);
+                    }
+
+                    if (previousBlock.hash !== block.previousBlockHash) {
+                        errorLog.push("Invalid previousBlockHash at " + block.height);
+                    }
+                } catch (error) {
+                    console.error(error);
+                    reject(error);
+                    
+                    return;
+                }
+                
+            }
+
+            resolve(errorLog);
             
         });
     }
