@@ -1,12 +1,12 @@
 {
-  "name": "project_1",
+  "name": "Private Blockchain Digital Assetnpm ",
   "version": "1.0.0",
   "description": "This project creates a Blockchain application to store data into the blocks",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Udacity - jose.morales@udacity.com",
+  "author": "Paulo Victor Moura - paulovsm@gmail.com",
   "license": "ISC",
   "dependencies": {
     "bitcoinjs-lib": "^4.0.3",
