@@ -38,14 +38,24 @@ class Block {
     validate() {
         let self = this;
         return new Promise((resolve, reject) => {
-            // Save in auxiliary variable the current block hash
-                                            
-            // Recalculate the hash of the Block
-            // Comparing if the hashes changed
-            // Returning the Block is not valid
+            try {
+                // Save in auxiliary variable the current block hash
+                let originalHash = self.hash;
+                                                
+                // Recalculate the hash of the Block
+                self.hash = null;
+                let checkHash = SHA256(JSON.stringify(self)).toString();
+                self.hash = originalHash;
+                
+                // Comparing if the hashes changed
+                // Returning the Block is not valid            
+                // Returning the Block is valid
+                resolve(originalHash === checkHash);
+            } catch (error) {
+                console.error(error);
+                reject(error);
+            }
             
-            // Returning the Block is valid
-
         });
     }
 
@@ -59,11 +69,30 @@ class Block {
      *     or Reject with an error.
      */
     getBData() {
-        // Getting the encoded data saved in the Block
-        // Decoding the data to retrieve the JSON representation of the object
-        // Parse the data to an object to be retrieve.
 
-        // Resolve with the data if the object isn't the Genesis block
+        if (this.height === 0) {
+            let error = new Error('The genesis block can not be retrieved!');
+            console.error(error);
+            throw error;
+        }      
+       
+        // Resolve with the data if the object isn't the Genesis block     
+
+        try {
+            // Getting the encoded data saved in the Block
+            let body = this.body;
+
+            // Decoding the data to retrieve the JSON representation of the object
+            let decodedBody = hex2ascii(body);
+
+            // Parse the data to an object to be retrieve.
+            let bodyAsJson = JSON.parse(decodedBody);
+
+            return bodyAsJson;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
 
     }
 
