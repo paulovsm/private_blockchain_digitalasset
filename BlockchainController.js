@@ -125,7 +125,7 @@ class BlockchainController {
                 if (arr) {
                     return res.status(200).json(arr);
                 } else {
-                    return res.status(404).send("Error while validating chain!");
+                    return res.status(404).json(arr);
                 }
             } catch (error) {
                 return res.status(500).send("An error happened!");
