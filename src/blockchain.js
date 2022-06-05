@@ -138,7 +138,7 @@ class Blockchain {
             try {
                 let messageTime = parseInt(message.split(':')[1]);
                 let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
-                let elapsedTime = 5 * 6; // 5 minutes
+                let elapsedTime = 5 * 60; // 5 minutes
 
                 if (currentTime - messageTime >= elapsedTime) {
                     let error = new Error('Validation time expired!');
