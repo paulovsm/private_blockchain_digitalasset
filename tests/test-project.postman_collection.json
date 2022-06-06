@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "0c928cca-09a6-45da-addd-0343e5a841de",
+		"name": "test-project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13945509"
+	},
+	"item": [
+		{
+			"name": "get block by height",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/block/height/0",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"block",
+						"height",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request validation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\":\"n3GeUqb4JVuu246er5dtyg5QSi9m84RkrT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/requestValidation",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"requestValidation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submit star",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": \"n3GeUqb4JVuu246er5dtyg5QSi9m84RkrT\",\n    \"message\": \"n3GeUqb4JVuu246er5dtyg5QSi9m84RkrT:1654517369:starRegistry\",\n    \"signature\": \"IEEBcMLRGwIE1GVEfcH7PdBKQNXsXFBqMy+3RmVH4JqbG8Ru0ys4RbmJO3vGbe7pJyJdd7hdptxgeLMdySpbb9o=\",\n    \"star\": {\n        \"dec\": \"68° 52' 56.9\",\n        \"ra\": \"16h 29m 1.0s\",\n        \"story\": \"My first star registration\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/submitstar",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"submitstar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve star own by me",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/blocks/n3GeUqb4JVuu246er5dtyg5QSi9m84RkrT",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"blocks",
+						"n3GeUqb4JVuu246er5dtyg5QSi9m84RkrT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get block by hashcode",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/block/hash/38bb3d3e04bc1d531e7a8fe6f05754ca7a2ad0310b4b79313d818a6f5a17c24f",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"block",
+						"hash",
+						"38bb3d3e04bc1d531e7a8fe6f05754ca7a2ad0310b4b79313d818a6f5a17c24f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validate chain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/validatechain",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"validatechain"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
